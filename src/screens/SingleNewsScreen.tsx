@@ -109,6 +109,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
         ...commentUpdateData,
         name: comment.name,
         comment: comment.comment,
+        avatar: comment.avatar,
         id,
       });
     }
@@ -245,6 +246,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
               <Swiper loop={false} style={{height: 200}}>
                 {images.map(image => (
                   <Image
+                    key={image.id}
                     style={{width: '100%', height: hd('20%')}}
                     source={{uri: image.image}}
                   />

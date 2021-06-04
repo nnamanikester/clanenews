@@ -37,13 +37,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    zIndex: 999,
+    zIndex: 9999,
     backgroundColor: '#000b',
-  },
-  button: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
   },
 });
 
@@ -65,9 +60,7 @@ export const Modal: React.FC<ModalProps> = ({
     <Clickable
       activeOpacity={1}
       onPressIn={onBackgroundClick}
-      style={{
-        ...styles.background,
-      }}>
+      style={[styles.background]}>
       <View style={[styles.container, style]}>{children}</View>
     </Clickable>
   );

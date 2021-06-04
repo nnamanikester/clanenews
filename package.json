@@ -1,5 +1,5 @@
 {
-  "name": "clanenews",
+  "name": "kesternews",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -19,22 +19,17 @@
     "intl": "^1.2.5",
     "react": "17.0.1",
     "react-native": "0.64.1",
-    "react-native-chart-kit": "^6.11.0",
-    "react-native-document-picker": "^5.0.3",
     "react-native-elements": "^3.4.1",
     "react-native-gesture-handler": "^1.10.3",
-    "react-native-material-menu": "^1.2.0",
     "react-native-reanimated": "^2.1.0",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^3.0.0",
-    "react-native-svg": "^12.1.0",
     "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-webview": "^11.3.2",
-    "react-redux": "^7.2.4",
-    "styled-components": "^5.3.0"
+    "react-redux": "^7.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -45,12 +40,8 @@
     "@types/react-native": "^0.64.0",
     "@types/react-redux": "^7.1.16",
     "@types/react-test-renderer": "^16.9.2",
-    "@types/styled-components": "^5.1.9",
     "babel-jest": "^26.6.3",
-    "babel-plugin-root-import": "^6.6.0",
     "eslint": "7.14.0",
-    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
-    "eslint-plugin-import": "^2.22.1",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.64.0",
     "react-test-renderer": "17.0.1",
