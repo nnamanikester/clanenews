@@ -27,8 +27,6 @@ export const Link: React.FC<LinkProps> = ({
   style,
   color,
 }) => {
-  const colors = useSelector((state: any) => state.colors);
-
   const styles = StyleSheet.create({
     link: {
       width: 'auto',
@@ -39,7 +37,7 @@ export const Link: React.FC<LinkProps> = ({
     <Clickable
       style={[styles.link, style]}
       onClick={to ? () => Linking.openURL(to) : onClick}>
-      <Text style={textStyle} color={color || colors.primary}>
+      <Text style={textStyle} color={color || '#2614c1'}>
         {children}
       </Text>
     </Clickable>

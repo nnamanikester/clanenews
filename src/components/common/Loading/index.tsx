@@ -31,7 +31,7 @@ export const Loading: React.FC<LoadingProps> = ({show = false}) => {
       width: '90%',
       height: 100,
       flex: 1,
-      zIndex: 999,
+      zIndex: 999999,
       // backgroundColor: '#fff',
     },
   });

@@ -6,6 +6,7 @@ import * as UI from '../common';
 
 export interface CommentProps {
   onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
   comment: string;
   avatar: string;
   date: string;
@@ -16,6 +17,7 @@ export interface CommentProps {
 const Comment: React.FC<CommentProps> = ({
   comment,
   onEdit,
+  onDelete,
   avatar,
   date,
   name,
@@ -32,6 +34,9 @@ const Comment: React.FC<CommentProps> = ({
             <UI.Spacer size={3} />
             <UI.Text>{comment}</UI.Text>
             <UI.Text color="#C4C4C4">{formatDate(date)}</UI.Text>
+            <UI.Link color="red" onClick={() => onDelete(id)}>
+              Delete
+            </UI.Link>
           </UI.Block>
         </UI.Block>
         <UI.Block width="auto">
