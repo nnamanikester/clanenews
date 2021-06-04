@@ -1,6 +1,5 @@
 import React from 'react';
-import {TouchableOpacityProps} from 'react-native';
-import styled from 'styled-components/native';
+import {TouchableOpacityProps, TouchableOpacity} from 'react-native';
 
 export interface ClickableProps extends TouchableOpacityProps {
   /**
@@ -14,10 +13,13 @@ export interface ClickableProps extends TouchableOpacityProps {
  * create a button or any other clickable. Accepts all react native TouchableOpacity
  * props except `onPress` and `activeOpacity`. `onPress` is replaced with `onClick`
  */
-export const Clickable: React.FC<ClickableProps> = styled.TouchableOpacity.attrs<ClickableProps>(
-  ({onClick}: any) => ({
-    onPress: onClick ? () => onClick() : null,
-    hitSlop: {top: 20, bottom: 20, left: 20, right: 20},
-    activeOpacity: 0.9,
-  }),
-)<ClickableProps>``;
+export const Clickable: React.FC<ClickableProps> = ({onClick, children}) => {
+  return (
+    <TouchableOpacity
+      onPress={onClick}
+      activeOpacity={0.9}
+      hitSlop={{top: 20, bottom: 20, left: 20, right: 20}}>
+      {children}
+    </TouchableOpacity>
+  );
+};

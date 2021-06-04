@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ScrollView,
@@ -9,9 +8,9 @@ import {
   ViewProps,
   StatusBar,
 } from 'react-native';
+import {Icon} from 'react-native-elements';
 import {widthPercentageToDP as wd} from 'react-native-responsive-screen';
 import {Clickable} from '../Clickable';
-import {Icon} from '../Icon';
 
 export interface LayoutProps extends ViewProps {
   /**
@@ -127,7 +126,7 @@ export const Layout: React.FC<LayoutProps> = ({
               <Clickable
                 onClick={() => scroll?.scrollTo({y: 0, animated: true})}
                 style={styles.fab}>
-                <Icon name="md-arrow-up" color="#fff" size={30} />
+                <Icon name="arrow-up" color="#fff" size={30} />
               </Clickable>
             )}
           </SafeAreaView>

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Linking, StyleSheet, TextStyle} from 'react-native';
-import {useSelector} from 'react-redux';
 import {Text} from '../Text';
 import {Clickable, ClickableProps} from '../Clickable';
 

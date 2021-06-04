@@ -12,18 +12,24 @@ export interface EditNewsScreenProps {
 }
 
 const EditNewsScreen: React.FC<EditNewsScreenProps> = ({navigation, route}) => {
+  // Get the news ID from the route
   const {id} = route.params;
-  const dispatch: Dispatch = store.dispatch;
 
+  // Redirect back if 'id' is not found
   if (!id) {
     return navigation.goBack();
   }
+  // Initialize dispatch functions
+  const dispatch: Dispatch = store.dispatch;
 
   const [loading, setLoading] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [body, setBody] = React.useState('');
   const [author, setAuthor] = React.useState('');
 
+  /**
+   * A function that fetchs the news and populates the form for editing.
+   */
   const getNews = async () => {
     setLoading(true);
     try {
@@ -40,10 +46,16 @@ const EditNewsScreen: React.FC<EditNewsScreenProps> = ({navigation, route}) => {
   };
 
   React.useEffect(() => {
+    // Fetch the news
     getNews();
   }, []);
 
+  /**
+   * A function that updates the news to the server
+   * @returns void
+   */
   const updateNews = async () => {
+    // Check if inputs are empty
     if (!title || !body || !author) {
       return Alert.alert('Error!', 'All fields are required to update news.');
     }
@@ -58,10 +70,12 @@ const EditNewsScreen: React.FC<EditNewsScreenProps> = ({navigation, route}) => {
         },
       );
       setLoading(false);
+      // Refetch the news and return back to the HomeScreen
       dispatch.news.fetchNewsAsync({page: 1, limit: 10});
       ToastAndroid.show('News updated successfully!', ToastAndroid.LONG);
       return navigation.goBack();
     } catch (e) {
+      ToastAndroid.show('Error updating news!', ToastAndroid.LONG);
       setLoading(false);
     }
   };

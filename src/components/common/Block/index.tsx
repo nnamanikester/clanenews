@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, StyleSheet, ViewProps, ViewStyle} from 'react-native';
-import styled from 'styled-components/native';
 
 export interface BlockProps extends ViewProps {
   justify?:

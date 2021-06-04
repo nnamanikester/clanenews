@@ -15,13 +15,22 @@ const CreateNewsScreen: React.FC<CreateNewsScreenProps> = ({navigation}) => {
   const [title, setTitle] = React.useState('');
   const [body, setBody] = React.useState('');
   const [author, setAuthor] = React.useState('');
+
+  // Initialize the dispatch functions
   const dispatch: Dispatch = store.dispatch;
 
+  /**
+   * A function to create news.
+   * @returns void
+   */
   const createNews = async () => {
+    // Check if the form inputs are empty
     if (!title || !body || !author) {
       return Alert.alert('Error!', 'All fields are required to create news.');
     }
     setLoading(true);
+
+    // Send the data to the server
     try {
       await axios.post(
         'https://5e4bfc87a641ed0014b02740.mockapi.io/api/clane/news',
@@ -32,11 +41,12 @@ const CreateNewsScreen: React.FC<CreateNewsScreenProps> = ({navigation}) => {
         },
       );
       setLoading(false);
+      // Refetch news after creating new one
       dispatch.news.fetchNewsAsync({page: 1, limit: 10});
       ToastAndroid.show('News created successfully!', ToastAndroid.LONG);
       return navigation.goBack();
     } catch (e) {
-      console.log(e);
+      ToastAndroid.show('Error creating news!', ToastAndroid.LONG);
       setLoading(false);
     }
   };

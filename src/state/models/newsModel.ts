@@ -17,13 +17,13 @@ type NewsState = Array<NewsItem>;
 export const news = createModel<RootModel>()({
     state: [] as NewsState,
     reducers: {
-        // handle state changes with pure functions
+        // handle state changes synchronously
         setNews(state: NewsState, payload: Array<NewsItem>) {
             return payload;
         },
     },
     effects: (dispatch) => ({
-        // handle state changes with impure functions.
+        // handle state changes asynchronously.
         fetchNewsAsync(payload: { page: number, limit: number }) {
             return new Promise(async (resolve, reject) => {
                 try {

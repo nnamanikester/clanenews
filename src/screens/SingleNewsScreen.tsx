@@ -16,6 +16,7 @@ export interface SingleNewsScreenProps {
   route: any;
 }
 
+// Image Type
 type ImageType = {
   id: string;
   image: string;
@@ -23,6 +24,7 @@ type ImageType = {
   newsId: string;
 };
 
+// Comment Type
 type CommentType = {
   id: string;
   avatar: string;
@@ -35,8 +37,11 @@ type CommentType = {
 type Props = SingleNewsScreenProps & ReturnType<typeof mapStateToProps>;
 
 const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
+  // Get the ID from the route params and find a single news from list of news
   const {id} = route.params;
   const post = news.find(item => item.id == id);
+
+  // Initialize states
   const [loading, setLoading] = React.useState(false);
   const [images, setImages] = React.useState<ImageType[]>([]);
   const [comments, setComments] = React.useState<CommentType[]>([]);
@@ -56,6 +61,9 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
     name: '',
   });
 
+  /**
+   * A function that fetches the images belonging to a news
+   */
   const getImages = async () => {
     setLoading(true);
     try {
@@ -69,6 +77,9 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
     }
   };
 
+  /**
+   * A funtion that fetches the comments associated to a news
+   */
   const getComments = async () => {
     setLoading(true);
     try {
@@ -76,6 +87,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
         `https://5e4bfc87a641ed0014b02740.mockapi.io/api/clane/news/${id}/comments`,
       );
       setComments(
+        // Sort and update the commets to the commets state
         res.data.sort(
           (a: CommentType, b: CommentType) => a.createdAt < b.createdAt,
         ),
@@ -86,6 +98,10 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
     }
   };
 
+  /**
+   * Handles the onEdit event of the Comment Component
+   * @param id strin
+   */
   const onClickEditComment = (id: string) => {
     const comment = comments.find(c => c.id == id);
     if (comment) {
@@ -99,8 +115,13 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
     setShowEditComment(true);
   };
 
+  /**
+   * Handles the onDelete Event of the comment component
+   * @param commentId string
+   */
   const onClickDeleteComment = (commentId: string) => {
     Alert.alert(
+      // Warn before deleting
       'Warning!',
       'Are you sure you want to delete this commnet?\nNote: Action cannot be undone!',
       [
@@ -108,6 +129,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
           text: 'Delete',
           onPress: async () => {
             setLoading(true);
+            // Sending a delete request to the server
             try {
               await axios.delete(
                 `https://5e4bfc87a641ed0014b02740.mockapi.io/api/clane/news/${id}/comments/${commentId}`,
@@ -131,7 +153,12 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
     );
   };
 
+  /**
+   * A function that handles the creating of new comment for a particular news
+   * @returns void
+   */
   const createComment = async () => {
+    // Check if the required inputs were provided
     if (!commentCreateData.name || !commentCreateData.comment) {
       return Alert.alert(
         'Error!',
@@ -139,22 +166,30 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
       );
     }
     setLoading(true);
+    // Send data to the server
     try {
       await axios.post(
         `https://5e4bfc87a641ed0014b02740.mockapi.io/api/clane/news/${id}/comments/`,
         commentCreateData,
       );
       setLoading(false);
+      // Refetch comments after creating new one
       getComments();
       ToastAndroid.show('Comment added successfully!', ToastAndroid.LONG);
       setShowAddComment(false);
+      // Empty the inputs
       setCommentCreateData({...commentCreateData, name: '', comment: ''});
     } catch (e) {
       setLoading(false);
     }
   };
 
+  /**
+   * A function to update an existing comment
+   * @returns void
+   */
   const updateComment = async () => {
+    // Validate inputs
     if (!commentUpdateData.name || !commentUpdateData.comment) {
       return Alert.alert(
         'Error!',
@@ -162,15 +197,18 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
       );
     }
     setLoading(true);
+    // Send data to the server
     try {
       await axios.put(
         `https://5e4bfc87a641ed0014b02740.mockapi.io/api/clane/news/${id}/comments/${commentUpdateData.id}`,
         commentUpdateData,
       );
       setLoading(false);
+      // Refetch comments after updating
       getComments();
       ToastAndroid.show('Comment updated successfully!', ToastAndroid.LONG);
       setShowEditComment(false);
+      // Reset the inputs
       setCommentUpdateData({
         ...commentUpdateData,
         name: '',
@@ -201,7 +239,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
       <UI.Layout itemsToFloat={[1]}>
         <UI.Block>
           <UI.Spacer medium />
-
+          {/* DISPLAYING POST IMAGES IN SLIDES IF ANY */}
           {images.length > 0 && (
             <>
               <Swiper loop={false} style={{height: 200}}>
@@ -242,6 +280,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
 
         <UI.Spacer medium />
 
+        {/* LISTING THE COMMENTS FOR THE NEWS */}
         {comments.length > 0 &&
           comments.map(item => (
             <>
@@ -262,6 +301,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
         <UI.Spacer size={50} />
       </UI.Layout>
 
+      {/* FLOATING ACTION BUTTON TO CREATE NEW COMMENT */}
       <FAB
         onPress={() => setShowAddComment(true)}
         placement="right"
@@ -269,6 +309,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
         icon={<Icon name="comment" color="#fff" size={30} />}
       />
 
+      {/* MODAL FOR CREATING NEW COMMENT */}
       <UI.Modal show={showAddComment}>
         <UI.Block>
           <UI.Block row justify="space-between">
@@ -306,6 +347,7 @@ const SingleNewsScreen: React.FC<Props> = ({navigation, route, news}) => {
         </UI.Block>
       </UI.Modal>
 
+      {/* MODAL FOR UPDATING A COMMENT */}
       <UI.Modal show={showEditComment}>
         <UI.Block>
           <UI.Block row justify="space-between">

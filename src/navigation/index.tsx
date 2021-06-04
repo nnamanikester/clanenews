@@ -10,6 +10,7 @@ import {store, Dispatch} from '../state/store';
 import CreateNewsScreen from '../screens/CreateNews';
 import EditNewsScreen from '../screens/EditNews';
 
+// Initalize the stack navigation
 const Stack = createStackNavigator();
 
 export interface NavigationFlowProps {}
@@ -18,6 +19,7 @@ const NavigationFlow: React.FC<NavigationFlowProps> = () => {
   const dispatch: Dispatch = store.dispatch;
 
   React.useEffect(() => {
+    // Fetches offline news when loading app
     (async () => {
       const news = await AsyncStorage.getItem('@Clane/news');
       if (news) {

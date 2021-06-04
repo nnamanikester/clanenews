@@ -12,6 +12,9 @@ export interface NewsCardProps {
   onEdit: (id: string) => void;
 }
 
+/**
+ * A Card to display the latest news on the HomeScreen
+ */
 const NewsCard: React.FC<NewsCardProps> = ({
   onClick,
   title,

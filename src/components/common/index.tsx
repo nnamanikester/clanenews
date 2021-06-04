@@ -1,6 +1,5 @@
 export * from './Block';
 export * from './Clickable';
-export * from './Icon';
 export * from './Layout';
 export * from './Link';
 export * from './Loading';

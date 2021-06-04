@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Header, Icon} from 'react-native-elements';
+import {Header} from 'react-native-elements';
 import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
 import * as UI from '../common';
 import logo from '../../../assets/icon.png';
@@ -9,6 +9,9 @@ export interface HeaderProps {
   right?: any;
 }
 
+/**
+ * Custom Header made from the React Native Elements Header.
+ */
 const CustomHeader: React.FC<HeaderProps> = ({left}) => {
   return (
     <Header
@@ -24,11 +27,6 @@ const CustomHeader: React.FC<HeaderProps> = ({left}) => {
           </UI.Text>
         </UI.Block>
       }
-      // rightComponent={
-      //   <UI.Clickable>
-      //     <Icon name="add" color="#fff" size={30} />
-      //   </UI.Clickable>
-      // }
     />
   );
 };

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Text as TXT,
@@ -10,7 +9,6 @@ import {
   widthPercentageToDP as wd,
   heightPercentageToDP as hd,
 } from 'react-native-responsive-screen';
-import {useSelector} from 'react-redux';
 
 export interface TextProps extends TXTProps {
   /**
